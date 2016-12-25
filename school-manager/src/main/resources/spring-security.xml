@@ -1,0 +1,42 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+
+    <!--<http auto-config="true" use-expressions="true"
+          access-denied-page="/auth/denied"> &lt;!&ndash; 拒绝被方访问时转向改页面 &ndash;&gt;
+
+
+        <intercept-url pattern="/auth/login" access="permitAll" />
+        <intercept-url pattern="/main/admin" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/main/common" access="hasRole('ROLE_USER')" />
+
+        <form-login login-page="/auth/login"
+                    authentication-failure-url="/auth/login?error=true"
+                    default-target-url="/main/common" />
+        <logout invalidate-session="true" logout-success-url="/auth/login"
+                logout-url="/auth/logout" />
+
+        <session-management>
+            <concurrency-control max-sessions="1"
+                                 error-if-maximum-exceeded="true" expired-url= "/auth/login?error=expired" />
+        </session-management>
+
+        &lt;!&ndash;退出登录是删除对应的session 信息  &ndash;&gt;
+        <logout delete-cookies="JSESSIONID"/>
+
+        <http-basic />
+
+    </http>
+    &lt;!&ndash; 方法级别的权限控制，需要用这个注解标签来开启&ndash;&gt;
+    <global-method-security jsr250-annotations="enabled" />
+
+    <authentication-manager>
+        &lt;!&ndash;这里必须用ref来连接   不能用user-service-ref 来连接     ，它是用来连接userDetailsService接口的实现的  &ndash;&gt;
+        <authentication-provider ref="jaasAuthenticationProvider" />
+    </authentication-manager>-->
+
+</beans:beans>
