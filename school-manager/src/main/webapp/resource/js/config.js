@@ -3,8 +3,8 @@
 var app =  
 angular.module('app')
   .config(
-    [        '$controllerProvider', '$compileProvider', '$filterProvider', '$provide','$locationProvider',
-    function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide,$locationProvider) {
+    [        '$controllerProvider', '$compileProvider', '$filterProvider', '$provide','$locationProvider','$httpProvider',
+    function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide,$locationProvider,$httpProvider) {
         
         // lazy controller, directive and service
         app.controller = $controllerProvider.register;
@@ -15,6 +15,7 @@ angular.module('app')
         app.constant   = $provide.constant;
         app.value      = $provide.value;
         //$locationProvider.html5Mode(true);
+        $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest'
     }
   ])
   .config(['$translateProvider', function($translateProvider){

@@ -4,21 +4,19 @@
  * Config for the router
  */
 angular.module('app')
-  .run(
-    [          '$rootScope', '$state', '$stateParams',
-      function ($rootScope,   $state,   $stateParams) {
-          $rootScope.$state = $state;
-          $rootScope.$stateParams = $stateParams;        
+  .run(['$rootScope', '$state', '$stateParams',function ($rootScope,$state,$stateParams) {
+      $rootScope.$state = $state;
+      $rootScope.$stateParams = $stateParams;
+
+      console.log("执行了run");
       }
     ]
   )
   .config(
-    [          '$stateProvider', '$urlRouterProvider',
-      function ($stateProvider,   $urlRouterProvider) {
-          
-          $urlRouterProvider
-              .otherwise('/access/signin');
-          $stateProvider
+    ['$stateProvider', '$urlRouterProvider', function ($stateProvider,$urlRouterProvider) {
+        $urlRouterProvider
+             .otherwise('/access/signin');
+        $stateProvider
               .state('app', {
                   abstract: true,
                   url: '/app',

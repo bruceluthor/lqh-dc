@@ -2,23 +2,69 @@
 
 /* Controllers */
   // signin controller
-app.controller('SigninFormController', ['$scope', '$http', '$state', 'httpUrl',function($scope, $http, $state,httpUrl) {
+app.controller('SigninFormController', ['$scope','$http','$q','$state','httpUrl','$rootScope','$location',function($scope,$http,$q, $state,httpUrl,$rootScope,$location) {
     $scope.user = {};
     $scope.authError = null;
+    var authenticate = function(credentials, callback) {
+
+        var headers = credentials ? {authorization : "Basic "
+        + btoa(credentials.username + ":" + credentials.password)
+        } : {};
+
+        $http.get('/access/signin.do', {headers : headers,params:{username:credentials.username,password:credentials.password}})
+            .success(function(data) {
+            if (data.name) {
+                $rootScope.authenticated = true;
+            } else {
+                $rootScope.authenticated = false;
+            }
+            callback && callback();
+        }).error(function() {
+            $rootScope.authenticated = false;
+            callback && callback();
+        });
+
+    }
+
+    //authenticate();
+    $scope.credentials = {};
     $scope.login = function() {
+        authenticate($scope.credentials, function() {
+            if ($rootScope.authenticated) {
+                $state.go('app.dashboard-v1');
+                $scope.authError = false;
+            } else {
+                $state.go('access.signin');
+                $scope.authError = true;
+            }
+        });
+    };
+    $scope.login1 = function() {
       $scope.authError = null;
       // Try to login
-      $http.post('access/signin.do', {email: $scope.user.email, password: $scope.user.password})
-      .then(function(response) {
-          if ( response.data.user ) {
+      var deferred = $q.defer();
+      $http({
+              method: "post",
+              url: httpUrl + "/access/signin.do",
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+              },
+              params: {email: $scope.user.email, password: $scope.user.password}
+          })
+      .success(function(response) {
+          deferred.resolve(response);
+          if (!response) {
           $scope.authError = 'Email or Password not right';
         }else{
           $state.go('app.dashboard-v1');
         }
-      }, function(x) {
-          console.log(x)
+      })
+      .error(function(response) {
+          deferred.reject(null);
+          console.log(response)
         $scope.authError = 'Server Error';
       });
+        return deferred.promise;
     };
   }])
 ;
