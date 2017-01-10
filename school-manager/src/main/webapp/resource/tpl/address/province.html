@@ -1,0 +1,33 @@
+<div ng-controller="provinceCtrl">
+    <div class="table-scrollable">
+        <table class="table table-hover table-striped table-bordered text-align-center">
+            <caption class="text-center"><h3><strong>全国省份预览</strong></h3></caption>
+            <thead class="bordered-blueberry">
+            <tr>
+                <th class="text-center">
+                    序号
+                </th>
+                <th class="text-center">
+                    省id
+                </th>
+                <th class="text-center">
+                    名称
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in provinceList">
+                <td class="text-center">
+                    {{$index+1}}
+                </td>
+                <td class="text-center">
+                    {{p.provinceId}}
+                </td>
+                <td class="text-center">
+                    {{p.province}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

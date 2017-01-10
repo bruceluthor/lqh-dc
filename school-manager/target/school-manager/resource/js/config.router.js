@@ -22,9 +22,48 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'resource/tpl/app.html'
               })
+            //省级管理
+            .state('app.provinceManage', {
+                url: '/provinceManage',
+                templateUrl: 'resource/tpl/address/province.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                            return $ocLazyLoad.load([
+                                'resource/js/controllers/address/province.js',
+                                'resource/js/services/address/provinceService.js']);
+                        }]
+                }
+            })
+            //市级管理
+            .state('app.cityManage', {
+                url: '/cityManage',
+                templateUrl: 'resource/tpl/address/city.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                            return $ocLazyLoad.load([
+                                'resource/js/controllers/address/city.js',
+                                'resource/js/services/address/cityService.js']);
+                        }]
+                }
+            })
+            .state('app.areaManage', {
+                url: '/areaManage',
+                templateUrl: 'resource/tpl/address/area.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                            return $ocLazyLoad.load([
+                                'resource/js/controllers/address/area.js',
+                                'resource/js/services/address/areaService.js']);
+                        }]
+                }
+            })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
-                  templateUrl: 'resource/tpl/app_dashboard_v1.html',
+                  //templateUrl: 'resource/tpl/app_dashboard_v1.html',
+                  templateUrl: function(params){ console.log(params);return 'resource/tpl/app_dashboard_v1.html'; },
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){

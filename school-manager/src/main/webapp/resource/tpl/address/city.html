@@ -1,0 +1,75 @@
+<div ng-controller="cityCtrl">
+    <div ng-show="!showAdd">
+        <select ng-model="provinceId" class="form-control" ng-options="x.provinceId as x.province for x in provinceList" ng-change="getCitiesByProvinceId()">
+            <option value="" >请选择省份</option>
+        </select>
+        <button class="btn m-b-xs w-xs btn-success" ng-click="showInsertCity()">添加市</button>
+
+        <div class="table-scrollable">
+            <table class="table table-hover table-striped table-bordered text-align-center">
+                <!--<caption class="text-center"><h3><strong>全国省份预览</strong></h3></caption>-->
+                <thead class="bordered-blueberry">
+                <tr>
+                    <th class="text-center">
+                        序号
+                    </th>
+                    <th class="text-center">
+                        市id
+                    </th>
+                    <th class="text-center">
+                        名称
+                    </th>
+                    <th class="text-center">
+                        操作
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="c in cityList">
+                    <td class="text-center">
+                        {{$index+1}}
+                    </td>
+                    <td class="text-center">
+                        {{c.cityId}}
+                    </td>
+                    <td class="text-center">
+                        {{c.city}}
+                    </td>
+                    <td class="text-center">
+                        <button class="btn m-b-xs w-xs btn-success" ng-click="updateCity(c.id)">修改</button>
+                        <button class="btn m-b-xs w-xs btn-danger" ng-click="deleteCity(c.id)">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div ng-show="showAdd">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">添加市</div>
+                <div class="panel-body">
+                    <form class="bs-example form-horizontal ng-pristine ng-valid">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">市id</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" placeholder="市id" type="text" ng-model="cityId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">市名称</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" placeholder="市名称" type="text" ng-model="cityName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button type="submit" class="btn btn-sm btn-info" ng-click="insertCity()">确认添加</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
