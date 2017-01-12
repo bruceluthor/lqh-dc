@@ -11,7 +11,30 @@ angular.module('app')
       console.log("执行了run");
       }
     ]
-  )
+  ).factory('getTmp', ['$http', '$timeout','httpUrl',
+        function($http, $timeout,httpUrl) {
+            return {
+                get : function(url) {
+                    // let's get data via $http
+                    // here it is the list, but
+                    // should be some GetById method
+                    return $http
+                        .get(httpUrl+url)
+                        .then(function(response){
+                            console.log(response)
+                            // simplified converter
+                            // taking the $http result and
+                            // by id gets the name
+                            var converter = response.data;
+                           // var name = converter[id];
+
+                            return converter;
+                        });
+                }
+            };
+        }
+    ])
+
   .config(
     ['$stateProvider', '$urlRouterProvider', function ($stateProvider,$urlRouterProvider) {
         $urlRouterProvider
@@ -25,7 +48,10 @@ angular.module('app')
             //省级管理
             .state('app.provinceManage', {
                 url: '/provinceManage',
-                templateUrl: 'resource/tpl/address/province.html',
+                //templateUrl: 'resource/tpl/address/province.html',
+                templateProvider:function(getTmp){
+                    return getTmp.get("/province/tpl_province.do")
+                },
                 resolve: {
                     deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -63,7 +89,7 @@ angular.module('app')
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   //templateUrl: 'resource/tpl/app_dashboard_v1.html',
-                  templateUrl: function(params){ console.log(params);return 'resource/tpl/app_dashboard_v1.html'; },
+                  templateUrl: function(params){ return 'resource/tpl/app_dashboard_v1.html'; },
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){

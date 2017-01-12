@@ -30,6 +30,7 @@ app.controller('cityCtrl',['$scope','cityService', function ($scope,cityService)
     }
     $scope.showInsertCity=function(){
         $scope.showAdd=true;
+
         if(!$scope.provinceId){
             $scope.showAdd=false;
             alert("请选择省份")

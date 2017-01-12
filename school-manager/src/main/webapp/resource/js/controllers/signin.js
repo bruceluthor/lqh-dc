@@ -35,7 +35,7 @@ app.controller('SigninFormController', ['$scope','$http','$q','$state','httpUrl'
                 $scope.authError = false;
             } else {
                 $state.go('access.signin');
-                $scope.authError = true;
+                $scope.authError = "账号密码出错";
             }
         });
     };
@@ -62,7 +62,7 @@ app.controller('SigninFormController', ['$scope','$http','$q','$state','httpUrl'
       .error(function(response) {
           deferred.reject(null);
           console.log(response)
-        $scope.authError = 'Server Error';
+        $scope.authError = '服务器出错';
       });
         return deferred.promise;
     };

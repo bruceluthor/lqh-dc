@@ -18,14 +18,12 @@
     <sec:http pattern="/index.html" security="none"></sec:http>
     <sec:http pattern="/getCode" security="none" /><!-- 不过滤验证码 -->
     <sec:http pattern="/test/**" security="none"></sec:http><!-- 不过滤测试内容 -->
-    <!--<sec:http auto-config="true">
+    <sec:http auto-config="true">
 
-        <sec:intercept-url pattern="/app.jsp" access="ROLE_SERVICE"/>
-        <sec:intercept-url pattern="/**" access="ROLE_ADMIN"/>
-        <sec:form-login login-page="/index.html"
+        <sec:form-login login-page="/WEB-INF/tpl/page_signin.html"
                         default-target-url="/success.html"/>
 
-    </sec:http>-->
+    </sec:http>
 
     <sec:authentication-manager>
         <sec:authentication-provider>
